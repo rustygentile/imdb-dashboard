@@ -9,9 +9,9 @@ CREATE TABLE names_basic(
 id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 nconst  VARCHAR(50) NOT NULL,
 primaryName VARCHAR(255),
-birthYear date,
-deathYear date,
-primaryProfession VARCHAR(50),
+birthYear INT,
+deathYear INT,
+primaryProfession VARCHAR(255),
 knownForTitles VARCHAR(255)
 );
 

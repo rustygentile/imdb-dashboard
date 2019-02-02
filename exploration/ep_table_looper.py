@@ -4,9 +4,47 @@ import datetime as dt
 from imdb import IMDb # pip install IMDbPY
 from imdb import helpers
 from dateutil import parser #pip install python-dateutil
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy.orm import Session
+import os
+import sys
+
+# CREATE DATABASE connection
+
+# set environment var
+password = os.environ['AWS_IMDB_PW']
+
+user = 'masterblaster'
+endpoint = 'imdb-explorer.clhfspuaimbp.us-east-1.rds.amazonaws.com'
+args = "ssl_ca=../database/config/rds-ca-2015-us-east-1-root.pem"
+
+rds_connection_string = f"{user}:{password}@{endpoint}/imdbtest_db2?{args}"
+engine = create_engine(f'mysql://{rds_connection_string}')
+
+conn = engine.connect()
+
+Base = automap_base()
+Base.prepare(engine, reflect=True)
+NamesBasic = Base.classes.names_basic
+
+session = Session(engine)
+
+results = session.query(NamesBasic.primaryName).all()
+for i in results:
+    print(i)
+
+
+
+
+
 ia = IMDb()
 
 
+
+# Show Listing
 rick_n_morty = '2861424'
 ren_n_stimpy = '0101178'
 beevis_n_butthead = '0105950'
@@ -122,7 +160,7 @@ for t in curr_titles:
         except KeyError:
             l_plot= None
         try:
-            l_series_title = i['series title']
+            l_series_title = i['series title'].split("(",1)[0].strip(' ') 
         except KeyError:
             l_series_title= None
         try:
@@ -171,9 +209,55 @@ for t in curr_titles:
     # Un-Comment below line and s_title concat line to change csv file name saves to series title. 
     #episode_df.to_csv("ep_data/" + episodes[s_title]['title'] + ".csv")
     episode_df.to_csv("ep_data/" + episode_of[-1] + ".csv")
-    #s_title = s_title + 1
+    #s_title = s_title + 1 
     print("----------------------------------------------------------------------------")
 
+for t in curr_titles:
+    fetch = ia.get_movie(t)
+    series.append(fetch)
+
+series_id = []
+title = []
+seasons = []
+avg_rating = []
+num_votes = []
+
+for i in series:
+    try:
+        l_series_id = i.getID()
+    except KeyError:
+        l_series = None
+    try:
+        l_title = i['title']
+    except KeyError:
+        l_title = None
+    try:
+        l_seasons = i['seasons']
+    except KeyError:
+        l_seasons = None
+    try:
+        l_avg_rating = i['rating']
+    except KeyError:
+        l_avg_rating = None
+    try:
+        l_votes = i['votes']
+    except KeyError:
+        l_votes = None
+    
+    series_id.append(l_series_id)
+    title.append(l_title)
+    seasons.append(l_seasons)
+    avg_rating.append(l_avg_rating)
+    num_votes.append(l_votes)
+    
+episode_df = pd.DataFrame({
+    'series_id': series_id,
+    'title': title,
+    'seasons': seasons,
+    'avg_rating': avg_rating,
+    'votes': num_votes
+})
+episode_df.to_csv("ep_data/series.csv")
 
 
 

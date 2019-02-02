@@ -8,16 +8,28 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
 from sqlalchemy import create_engine, func
+import numpy as np
+
+
 #################################################
 # Database Setup
 #################################################
-# Web sites use threads, but sqlite is not thread-safe.
-# These parameters will let us get around it.
-# However, it is recommended you create a new Engine, Base, and Session
-# for each thread (each route call gets its own thread)
-#engine = create_engine("",
-# connect_args={'check_same_thread':False},
-# poolclass=StaticPool)
+
+password = os.environ['AWS_IMDB_PW']
+user = 'masterblaster'
+endpoint = 'imdb-explorer.clhfspuaimbp.us-east-1.rds.amazonaws.com'
+args = "ssl_ca=database/config/rds-ca-2015-us-east-1-root.pem"
+
+rds_connection_string = f"{user}:{password}@{endpoint}/imdbtest_db2?{args}"
+engine = create_engine(f'mysql://{rds_connection_string}')
+
+Base = automap_base()
+Base.prepare(engine, reflect=True)
+NamesBasic = Base.classes.names_basic
+
+session = Session(engine)
+
+
 #################################################
 ######################
 # Create an instance of Flask
@@ -51,6 +63,17 @@ def mainapi():
     """List all available api routes."""
     return render_template("api_home.html")
 #--------------------
+
+#--------------------
+@app.route("/db_test")
+def dbtest():
+    results = session.query(NamesBasic.primaryName).all()
+    
+    # Convert list of tuples into normal list
+    all_names = list(np.ravel(results))
+    return jsonify(all_names)
+#--------------------
+
 
 ###################### End #########################
 if __name__ == "__main__":

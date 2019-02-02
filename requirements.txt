@@ -4,3 +4,4 @@ mysqlclient
 flask
 jsonify
 gunicorn
+numpy

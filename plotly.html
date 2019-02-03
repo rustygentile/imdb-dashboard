@@ -1,0 +1,121 @@
+<head>
+  
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  
+  <div id="myDiv"></div>
+  <script>
+    
+  var trace1 = {
+  x: [ 'Rick and Morty',
+    'The Ren & Stimpy Show',
+    'Beavis and Butt-Head',
+    '√Üon Flux',
+    'Celebrity Deathmatch',
+    'Daria',
+    'South Park',
+    'Family Guy',
+    'American Dad',
+    'King of the Hill',
+    'Space Ghost Coast to Coast',
+    'Futurama',
+    'Aqua Teen Hunger Force',
+    'Archer',
+    'The Boondocks',
+    'Metalocalypse',
+    'Robot Chicken',
+    'Squidbillies',
+    'Superjail',
+    'Big Mouth',
+    'Bobs Burgers',
+    'BoJack Horseman',
+    'Mr. Pickles',
+    'The Venture Bros',
+    'The Simpsons',
+    'Spawn'],
+  y: ['4','5','8','3','6','5','23','17','15','13','11','7','11','10','4','5','9','12','4','3','9','6','3','7','30','3'],
+  type: 'bar',
+  
+  marker: {
+    color : 'rgb(142,124,195)'
+  }
+};
+
+var data = [trace1];
+
+var layout = {
+  title: 'Title vs # Seasons',
+  font:{
+    family: 'Raleway, sans-serif'
+  },
+  showlegend: false,
+  xaxis: {
+    tickangle: -45
+  },
+  yaxis: {
+    zeroline: false,
+    gridwidth: 2
+  },
+  bargap :0.05
+};
+
+
+var trace2 = {
+  x: [ 'Rick and Morty',
+    'The Ren & Stimpy Show',
+    'Beavis and Butt-Head',
+    '√Üon Flux',
+    'Celebrity Deathmatch',
+    'Daria',
+    'South Park',
+    'Family Guy',
+    'American Dad',
+    'King of the Hill',
+    'Space Ghost Coast to Coast',
+    'Futurama',
+    'Aqua Teen Hunger Force',
+    'Archer',
+    'The Boondocks',
+    'Metalocalypse',
+    'Robot Chicken',
+    'Squidbillies',
+    'Superjail',
+    'Big Mouth',
+    'Bobs Burgers',
+    'BoJack Horseman',
+    'Mr. Pickles',
+    'The Venture Bros',
+    'The Simpsons',
+    'Spawn'],
+  y: ['4','5','8','3','6','5','23','17','15','13','11','7','11','10','4','5','9','12','4','3','9','6','3','7','30','3'],
+  type: 'bar',
+  
+  marker: {
+    color : 'rgb(142,124,195)'
+  }
+};
+
+var data = [trace2];
+
+var layout = {
+  title: 'Title vs # Seasons',
+  font:{
+    family: 'Raleway, sans-serif'
+  },
+  showlegend: false,
+  xaxis: {
+    tickangle: -45
+  },
+  yaxis: {
+    zeroline: false,
+    gridwidth: 2
+  },
+  bargap :0.05
+};
+
+Plotly.newPlot('myDiv', data, layout, {showSendToCloud:true});
+
+  </script>
+</body>

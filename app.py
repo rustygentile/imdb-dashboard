@@ -3,32 +3,14 @@ import pandas as pd
 from flask import Flask, render_template, redirect, make_response,request, jsonify
 import os
 import json
-import sqlalchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy.pool import StaticPool
-from sqlalchemy import create_engine, func
 import numpy as np
-
+from exploration.table_maker import *
 
 #################################################
 # Database Setup
 #################################################
 
-password = os.environ['AWS_IMDB_PW']
-user = 'masterblaster'
-endpoint = 'imdb-explorer.clhfspuaimbp.us-east-1.rds.amazonaws.com'
-args = "ssl_ca=database/config/rds-ca-2015-us-east-1-root.pem"
-
-rds_connection_string = f"{user}:{password}@{endpoint}/imdbtest_db2?{args}"
-engine = create_engine(f'mysql://{rds_connection_string}')
-
-Base = automap_base()
-Base.prepare(engine, reflect=True)
-NamesBasic = Base.classes.names_basic
-
-session = Session(engine)
-
+conn, session = create_connection(False, './exploration/')
 
 #################################################
 ######################
@@ -67,12 +49,49 @@ def mainapi():
 #--------------------
 @app.route("/db_test")
 def dbtest():
-    results = session.query(NamesBasic.primaryName).all()
-    
-    # Convert list of tuples into normal list
+    results = session.query(Series.title).all()
     all_names = list(np.ravel(results))
     return jsonify(all_names)
 #--------------------
+
+#--------------------
+@app.route("/plotdata/air_date_vs_rating/<series_tconsts>")
+def air_date_vs_rating(series_tconsts):
+
+    # Should be a list of comma separated IMDB id's
+    # E.g: '2861424,101178' for Rick and Morty and Ren & Stimpy 
+    selected_tconsts = [eval(x) for x in series_tconsts.split(',')]
+
+    data_blob = []
+    for tconst in selected_tconsts:
+        # Query the episode table
+        episode = session.query(Episode)\
+            .filter(Episode.parent_tconst == tconst)\
+            .all()
+        
+        # Unpack the data
+        dates = [e.original_air_date for e in episode]
+        avg_ratings = [e.avg_rating for e in episode]
+        titles = [e.title for e in episode]
+        plots = [e.plot for e in episode]
+
+        # Query the series table    
+        series = session.query(Series)\
+            .filter(Series.tconst == tconst)\
+            .first()
+
+        data_blob.append({'Series': series.title,
+                          'Episodes': {
+                                'title': titles,
+                                'plot': plots,
+                                'original_air_date': dates,
+                                'avg_rating': avg_ratings
+                                }
+                           })
+
+    return jsonify(data_blob)
+#--------------------
+
 
 
 ###################### End #########################

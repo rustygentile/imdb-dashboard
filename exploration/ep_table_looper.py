@@ -11,35 +11,7 @@ from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.orm import Session
 import os
 import sys
-
-# CREATE DATABASE connection
-
-# set environment var
-password = os.environ['AWS_IMDB_PW']
-
-user = 'masterblaster'
-endpoint = 'imdb-explorer.clhfspuaimbp.us-east-1.rds.amazonaws.com'
-args = "ssl_ca=../database/config/rds-ca-2015-us-east-1-root.pem"
-
-rds_connection_string = f"{user}:{password}@{endpoint}/imdbtest_db2?{args}"
-engine = create_engine(f'mysql://{rds_connection_string}')
-
-conn = engine.connect()
-
-Base = automap_base()
-Base.prepare(engine, reflect=True)
-NamesBasic = Base.classes.names_basic
-
-session = Session(engine)
-
-results = session.query(NamesBasic.primaryName).all()
-for i in results:
-    print(i)
-
-
-
-
-
+    
 ia = IMDb()
 
 
@@ -85,6 +57,10 @@ curr_titles = ([rick_n_morty,ren_n_stimpy,beevis_n_butthead,aeon_flux,celeb_deat
 
 # s_title variable is used for alternate csv naming convention. 
 s_title = 0
+total_ep_id = []
+total_ser_id = []
+total_plot = []
+total_date = []
 for t in curr_titles:
 
     # Create object of all series
@@ -187,6 +163,11 @@ for t in curr_titles:
         episode_title.append(l_episode_title)
         episode_id.append(l_episode_id)
 
+        total_ep_id.append(l_episode_id)
+        total_ser_id.append(l_episode_of)
+        total_plot.append(l_plot)
+        total_date.append(l_original_air_date)
+
     # Create Data frame and apply lists to columns. 
     print(f"Creating DataFrame for {t}")
     episode_df = pd.DataFrame({'title': title,
@@ -212,6 +193,14 @@ for t in curr_titles:
     #s_title = s_title + 1 
     print("----------------------------------------------------------------------------")
 
+total_df = pd.DataFrame({'series_id': total_ser_id,
+                        'episode_id': total_ep_id,
+                        'plot': total_plot,
+                        'original_air_date': total_date
+})
+total_df.to_csv("ep_data/axander_append.csv")
+
+""" series = []
 for t in curr_titles:
     fetch = ia.get_movie(t)
     series.append(fetch)
@@ -257,7 +246,7 @@ episode_df = pd.DataFrame({
     'avg_rating': avg_rating,
     'votes': num_votes
 })
-episode_df.to_csv("ep_data/series.csv")
+episode_df.to_csv("ep_data/series.csv") """
 
 
 

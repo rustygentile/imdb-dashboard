@@ -13,34 +13,32 @@ import os
 import sys
 
 
-
-
-# CREATE DATABASE connection
-
 # set environment var
 password = os.environ['AWS_IMDB_PW']
 
+# AWS connection setup. Declare username and endpoint piece. 
 user = 'masterblaster'
 endpoint = 'imdb-explorer.clhfspuaimbp.us-east-1.rds.amazonaws.com'
 args = "ssl_ca=../database/config/rds-ca-2015-us-east-1-root.pem"
 
+# AWS username and password. 
 rds_connection_string = f"{user}:{password}@{endpoint}/imdb_lean?{args}"
 engine = create_engine(f'mysql://{rds_connection_string}')
 
+# Connection attachment. 
 conn = engine.connect()
-
-
 Base = declarative_base()
 
 
 
 session = Session(engine)
 
+
 # Create Series Class for SQL Database Table
 class Series(Base):
    __tablename__ = 'series'
    id = Column(Integer, primary_key=True)
-   nconst = Column(Integer)
+   tconst = Column(Integer)
    title = Column(String(255))
    num_seasons = Column(Integer)
    avg_rating = Column(Float)
@@ -48,10 +46,10 @@ class Series(Base):
 
 # Create Episode Class for SQL Database Table
 
+
 Base.metadata.create_all(conn)
 
 ia = IMDb()
-
 
 
 # Show Listing
@@ -105,9 +103,9 @@ print("Write series info to instance of Class.")
 for i in series:
     result = Series()
     try:
-        result.nconst = i.getID()
+        result.tconst = i.getID()
     except KeyError:
-        result.nconst = 0
+        result.tconst = 0
     try:
         result.title = i['title']
     except KeyError:
@@ -129,6 +127,8 @@ for i in series:
     print("Commit to Database!!!!!!!")
     session.add(result)
     session.commit()
+
+
 
 
 

@@ -53,10 +53,10 @@ def dbtest():
     all_names = list(np.ravel(results))
     return jsonify(all_names)
 #--------------------
-
+# API DATA CALLS START HERE!!!!!!
 #--------------------
-@app.route("/plotdata/air_date_vs_rating/<series_tconsts>")
-def air_date_vs_rating(series_tconsts):
+@app.route("/plotdata/all_plots/<series_tconsts>")
+def all_plots(series_tconsts):
 
     # Should be a list of comma separated IMDB id's
     # E.g: '2861424,101178' for Rick and Morty and Ren & Stimpy 
@@ -91,6 +91,22 @@ def air_date_vs_rating(series_tconsts):
 
     return jsonify(data_blob)
 #--------------------
+# Pull all Show names and ID's in data base.
+#--------------------
+@app.route("/API/all_show_names/")
+def all_show_names():
+    name_blob = []
+    ids = []
+    titles = []
+    names = session.query(Series)
+
+    for i in names:
+        ids = i.tconst
+        titles = i.title
+        data = {'id': ids, 'title': titles}
+        name_blob.append(data)
+
+    return jsonify(name_blob)
 
 
 

@@ -6,6 +6,7 @@ import json
 import numpy as np
 from exploration.table_maker import *
 import datetime as dt
+from sqlalchemy.sql import func
 
 #################################################
 # Database Setup
@@ -75,35 +76,95 @@ def all_plots(series_tconsts):
     data_blob = []
     for tconst in selected_tconsts:
         # Query the episode table
-        episode = session.query(Episode)\
+        episodes = session.query(Episode)\
             .filter(Episode.parent_tconst == tconst)\
             .all()
         
-        dates = []
+        episode_dates = []
         # Unpack the data
-        for e in episode:
+        for e in episodes:
             try:
-                dates.append(e.original_air_date.strftime('%Y-%m-%d'))
+                episode_dates.append(e.original_air_date.strftime('%Y-%m-%d'))
             except AttributeError:
-                dates.append(None)
+                episode_dates.append(None)
         
-        avg_ratings = [e.avg_rating for e in episode]
-        titles = [e.title for e in episode]
-        plots = [e.plot for e in episode]
-        votes = [e.number_votes for e in episode]
+        episode_avg_ratings = [e.avg_rating for e in episodes]
+        episode_titles = [e.title for e in episodes]
+        episode_plots = [e.plot for e in episodes]
+        episode_votes = [e.number_votes for e in episodes]
+        episode_seasons = [e.season for e in episodes]
+        episode_episodes = [e.episode for e in episodes]
+
+        # Calculate by season
+        season_number = []
+        season_votes = []
+        season_rating = []
+        season_episode_count = []
+        for i in range(1, max(episode_seasons) + 1):
+            season_rating_query = session.query(func.avg(Episode.avg_rating))\
+                            .filter(Episode.parent_tconst == tconst)\
+                            .filter(Episode.season==i)\
+                            .first()            
+
+            try:
+                season_rating.append(float(season_rating_query[0]))
+            except TypeError:
+                season_rating.append(None)
+
+            season_votes_query = session.query(func.sum(Episode.number_votes))\
+                            .filter(Episode.parent_tconst == tconst)\
+                            .filter(Episode.season==i)\
+                            .first()
+
+            try:
+                season_votes.append(float(season_votes_query[0]))
+            except TypeError:
+                season_votes.append(None)
+
+            season_episode_count_query = session.query(Episode)\
+                            .filter(Episode.parent_tconst == tconst)\
+                            .filter(Episode.season==i)\
+                            .count()
+
+            try:
+                season_episode_count.append(season_episode_count_query)
+            except TypeError:
+                season_episode_count.append(None)
+
+            season_number.append(i)
+
+        normalized_season = []
+        for i in range(len(episode_episodes)):
+            try:
+                season = episode_seasons[i]
+                count = season_episode_count[season - 1]
+                normalized_season.append(season + (episode_episodes[i] - 1) / count)
+            except:
+                normalized_season.append(None)
 
         # Query the series table    
         series = session.query(Series)\
             .filter(Series.tconst == tconst)\
             .first()
 
-        data_blob.append({'Series': series.title,
+        data_blob.append({'Series': {
+                                'title': series.title,
+                                'number_of_seasons': series.num_seasons,
+                                'series_avg_rating': series.avg_rating,
+                                'series_votes': series.num_votes,
+                                'season_number': season_number,
+                                'season_votes': season_votes,
+                                'season_avg_rating': season_rating,
+                                'season_episode_count': season_episode_count},
                           'Episodes': {
-                                'title': titles,
-                                'plot': plots,
-                                'original_air_date': dates,
-                                'rating': avg_ratings,
-                                'votes': votes
+                                'title': episode_titles,
+                                'plot': episode_plots,
+                                'original_air_date': episode_dates,
+                                'rating': episode_avg_ratings,
+                                'votes': episode_votes,
+                                'season_number': episode_seasons,
+                                'episode_number': episode_episodes,
+                                'normalized_season': normalized_season
                                 }
                            })
 

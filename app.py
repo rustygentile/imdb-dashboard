@@ -5,6 +5,7 @@ import os
 import json
 import numpy as np
 from exploration.table_maker import *
+import datetime as dt
 
 #################################################
 # Database Setup
@@ -78,8 +79,14 @@ def all_plots(series_tconsts):
             .filter(Episode.parent_tconst == tconst)\
             .all()
         
+        dates = []
         # Unpack the data
-        dates = [e.original_air_date for e in episode]
+        for e in episode:
+            try:
+                dates.append(e.original_air_date.strftime('%Y-%m-%d'))
+            except AttributeError:
+                dates.append(None)
+        
         avg_ratings = [e.avg_rating for e in episode]
         titles = [e.title for e in episode]
         plots = [e.plot for e in episode]

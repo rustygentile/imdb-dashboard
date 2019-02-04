@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
     crossorigin="anonymous">
 
- 
+
 
   <!--The following uses data URI and can be used to avoid fake favicon requests:-->
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
@@ -63,70 +63,70 @@
   <!-- End of the Navigation bar-->
 
   <div class="container">
-      <div class="row">
-          <div class="col-2 px-1 bg-light position-fixed" id="sticky-sidebar">
-              <div class="card bg-light border-primary" style="width: 11rem;">
-                  <div class="card-header">
-                    <h5><i class="fas fa-search"></i>Search by Series:</h5>
-                  </div>
-                  <div class="card-body">
-      
-                    <!--Make sure the form has the autocomplete function switched off:-->
-                    <form id="frm1" autocomplete="off">
-                      <div class="autocomplete">
-                        <input id="myInput" type="text" name="mySeries" placeholder="Series...">
-                      </div>
-                      <input type="button" class="btn btn-outline-primary" id="button1" value="Add Series" onclick="add_element_to_array();">
-      
-                    </form>
-                  </div>
-                </div>
-                <br>
-                <div class="card bg-light border-primary" style="width: 11rem;">
-                    <div class="card-header">
-                      <h5>Active Series: </h5>
-                    </div>
-                    <div class="card-body">
-                      <ul id="seriesList"></ul>
-                      <input type="button" class="btn btn-outline-primary" id="button2" value="Update Plots" onclick="update_plots();">
-                    </div>
-                  </div>
+    <div class="row">
+      <div class="col-2 px-1 bg-light position-fixed" id="sticky-sidebar">
+        <div class="card bg-light border-primary" style="width: 11rem;">
+          <div class="card-header">
+            <h5><i class="fas fa-search"></i>Search by Series:</h5>
           </div>
-          <div class="col offset-3" id="main">
-      <!-- main body -->
-      <div class="row ">
-        <div class="col-md-10">
-          <div id ="bubble1"></div>
+          <div class="card-body">
+
+            <!--Make sure the form has the autocomplete function switched off:-->
+            <form id="frm1" autocomplete="off">
+              <div class="autocomplete">
+                <input id="myInput" type="text" name="mySeries" placeholder="Series...">
+              </div>
+              <input type="button" class="btn btn-outline-primary" id="button1" value="Add Series" onclick="add_element_to_array();">
+
+            </form>
+          </div>
+        </div>
+        <br>
+        <div class="card bg-light border-primary" style="width: 11rem;">
+          <div class="card-header">
+            <h5>Active Series: </h5>
+          </div>
+          <div class="card-body">
+            <ul id="seriesList"></ul>
+            <input type="button" class="btn btn-outline-primary" id="button2" value="Update Plots" onclick="update_plots();">
+          </div>
         </div>
       </div>
+      <div class="col offset-3" id="main">
+        <!-- main body -->
         <div class="row ">
           <div class="col-md-10">
-            <div id ="bubble2"></div>
+            <div id="bubble1"></div>
           </div>
         </div>
         <div class="row ">
           <div class="col-md-10">
-            <div id ="line"></div>
+            <div id="bubble2"></div>
           </div>
-        </div>   
+        </div>
+        <div class="row ">
+          <div class="col-md-10">
+            <div id="line"></div>
+          </div>
+        </div>
 
         <div class="row ">
           <div class="col-md-4">
-            <div id ="bar1"></div>
+            <div id="bar1"></div>
           </div>
           <div class="col-md-4">
-            <div id ="bar2"></div>
+            <div id="bar2"></div>
           </div>
           <div class="col-md-4">
-            <div id ="bar3"></div>
+            <div id="bar3"></div>
           </div>
         </div>
-      
-    
-    <!-- End of Main container-->
-          </div>
+
+
+        <!-- End of Main container-->
       </div>
-      
+    </div>
+
   </div>
   <footer>
     <!-- Copyright -->
@@ -135,11 +135,17 @@
     </p>
   </footer>
 
- <!-- Plotly and d3 -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+  <!-- Plotly and d3 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <script>
+
+  const allShows = JSON.parse('{{ all_shows | tojson | safe}}');
+
+  </script>
   <script type="text/javascript" src="static/js/app.js"></script>
   <script type="text/javascript" src="static/js/plots.js"></script>
 

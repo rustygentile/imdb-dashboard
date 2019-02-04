@@ -4,31 +4,10 @@ var x =0;
 var listSerials = [];
 var seriesCount = 0;
 var maxSeries = 7;
-/*An array containing all the country names in the world:*/
-var series = ["The Simpsons",
-"Rick And Morty",
-"Ren And Stimpy",
-"Beevis and Butthead",
-"AEON Flux",
-"Celebrity Death Match",
-"Daria",
-"South Park",
-"Family Guy",
-"American Dad",
-"King of The Hill",
-"Space Ghost Coast to Coast", 
-"Futurama",
-"Aqua Teen Hunger Force",
-"Archer",
-"The Boondocks", 
-"Metalocalypse",
-"Robot Chicken",
-"Squidbillies",
-"Super Jail",  
-"Big Mouth",
-"Bobís Burgers",
-"BoJack Horseman" ,
-"Mr. Pickles" ];
+
+// allShows must be passed in from flask -> index.html 
+let series = allShows.title;
+let seriesIds = allShows.id;
 
   /*initiate the autocomplete function on the "myInput" element, and pass along the series array as possible autocomplete values:*/
   autocomplete(document.getElementById("myInput"), series);

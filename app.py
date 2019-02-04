@@ -21,7 +21,16 @@ app = Flask(__name__)
 @app.route("/")
 def home():
 
-    return render_template("index.html")
+    # Pull all Show names and ID's in data base.
+    ids = []
+    titles = []
+    names = session.query(Series)
+    for i in names:
+        ids.append(i.tconst)
+        titles.append(i.title)
+    
+    name_blob = {'id': ids, 'title': titles}
+    return render_template("index.html", all_shows=name_blob)
 #--------------------
 # Route to render about.html template using csv data
 @app.route("/about")
@@ -60,7 +69,7 @@ def all_plots(series_tconsts):
 
     # Should be a list of comma separated IMDB id's
     # E.g: '2861424,101178' for Rick and Morty and Ren & Stimpy 
-    selected_tconsts = [eval(x) for x in series_tconsts.split(',')]
+    selected_tconsts = [int(x) for x in series_tconsts.strip(',').split(',')]
 
     data_blob = []
     for tconst in selected_tconsts:
@@ -74,6 +83,7 @@ def all_plots(series_tconsts):
         avg_ratings = [e.avg_rating for e in episode]
         titles = [e.title for e in episode]
         plots = [e.plot for e in episode]
+        votes = [e.number_votes for e in episode]
 
         # Query the series table    
         series = session.query(Series)\
@@ -85,30 +95,12 @@ def all_plots(series_tconsts):
                                 'title': titles,
                                 'plot': plots,
                                 'original_air_date': dates,
-                                'avg_rating': avg_ratings
+                                'rating': avg_ratings,
+                                'votes': votes
                                 }
                            })
 
     return jsonify(data_blob)
-#--------------------
-# Pull all Show names and ID's in data base.
-#--------------------
-@app.route("/API/all_show_names/")
-def all_show_names():
-    name_blob = []
-    ids = []
-    titles = []
-    names = session.query(Series)
-
-    for i in names:
-        ids = i.tconst
-        titles = i.title
-        data = {'id': ids, 'title': titles}
-        name_blob.append(data)
-
-    return jsonify(name_blob)
-
-
 
 ###################### End #########################
 if __name__ == "__main__":

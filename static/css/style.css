@@ -103,7 +103,7 @@ border-right:0;
   /*when navigating through the items using the arrow keys:*/
   .autocomplete-active {
     background-color: DodgerBlue !important; 
-    color: #ffffff; 
+    color: transparent; 
   }
   #myInput {
 

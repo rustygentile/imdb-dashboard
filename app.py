@@ -8,20 +8,17 @@ from exploration.table_maker import *
 import datetime as dt
 from sqlalchemy.sql import func
 
-#################################################
-# Database Setup
-#################################################
-
-conn, session = create_connection(False, './exploration/')
-
-#################################################
 ######################
 # Create an instance of Flask
 app = Flask(__name__)
 ######################
+
 # Route to render index.html
 @app.route("/")
 def home():
+
+    # Database connection
+    conn, session = create_connection(False, './exploration/')
 
     # Pull all Show names and ID's in data base.
     ids = []
@@ -32,6 +29,8 @@ def home():
         titles.append(i.title)
     
     name_blob = {'id': ids, 'title': titles}
+    conn.close()
+
     return render_template("index.html", all_shows=name_blob)
 #--------------------
 # Route to render about.html template using csv data
@@ -46,9 +45,39 @@ def featured():
 
     return render_template("featured.html")
 #--------------------
+#error handler
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+#--------------------
+@app.route("/API")
+def mainapi():
+    """List all available api routes."""
+    return render_template("api_home.html")
+#--------------------
+
+#--------------------
+# API DATA CALLS START HERE!!!!!!
+#--------------------
+@app.route("/db_test")
+def dbtest():
+
+    # Database connection
+    conn, session = create_connection(False, './exploration/')
+
+    results = session.query(Series.title).all()
+    all_names = list(np.ravel(results))
+   
+    conn.close()
+    return jsonify(all_names)
+
 # Route to render the Life of Brian featured plots 
 @app.route("/life_of_brian")
 def life_of_brian():
+
+    # Database connection
+    conn, session = create_connection(False, './exploration/')
+
     ## Family Guy Query -- Life of Brian
     family_guy_episodes = session.query(Episode)\
             .filter(Episode.parent_tconst == 182576)\
@@ -78,12 +107,16 @@ def life_of_brian():
         'hover_text': episode_titles
     }
 
+    conn.close()
     return jsonify(family_guy_chart_data)
 
 #--------------------
 # Route to render Rick and Morty mania featured plots 
 @app.route("/rick_and_morty_mania")
 def rick_and_morty_mania():
+
+    # Database connection
+    conn, session = create_connection(False, './exploration/')
 
     selected_tconsts = [96697,182576,121955,2861424]
 
@@ -145,31 +178,14 @@ def rick_and_morty_mania():
             'votes': season_votes
             })
 
+    conn.close()
     return jsonify(big_four_data)
 
-#--------------------
-#error handler
-@app.errorhandler(404)
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
-#--------------------
-@app.route("/API")
-def mainapi():
-    """List all available api routes."""
-    return render_template("api_home.html")
-#--------------------
-
-#--------------------
-@app.route("/db_test")
-def dbtest():
-    results = session.query(Series.title).all()
-    all_names = list(np.ravel(results))
-    return jsonify(all_names)
-#--------------------
-# API DATA CALLS START HERE!!!!!!
-#--------------------
 @app.route("/plotdata/all_plots/<series_tconsts>")
 def all_plots(series_tconsts):
+
+    # Database connection
+    conn, session = create_connection(False, './exploration/')
 
     # Should be a list of comma separated IMDB id's
     # E.g: '2861424,101178' for Rick and Morty and Ren & Stimpy 
@@ -270,6 +286,7 @@ def all_plots(series_tconsts):
                                 }
                            })
 
+    conn.close()
     return jsonify(data_blob)
 
 ###################### End #########################

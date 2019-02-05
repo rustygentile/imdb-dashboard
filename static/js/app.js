@@ -1,14 +1,38 @@
-
 /*  JavaScript file  */
+/*************** Set all the variables ***********/
+seriesCount = 0;
+var maxSeries = 7;
 var x =0;
 var listSerials = [];
-var seriesCount = 0;
-var maxSeries = 7;
 
 // allShows must be passed in from flask -> index.html 
 let series = allShows.title;
 let seriesIds = allShows.id;
 
+/*************** Initialize the dashboard ***********/
+function init() {
+  seriesCount = 2;
+  x =2;
+  listSerials = ['The Simpsons','Rick and Morty'];
+
+for (var i=0; i<x; i++)
+{
+  var li = document.createElement('li');
+  var ul = document.getElementById('seriesList');
+  var xButton = document.createElement("button");
+  var seriesName = listSerials[i] + " ";
+  //alert("series Name : " +seriesName);
+  li.setAttribute('id',i);
+    li.appendChild(document.createTextNode(seriesName));
+    ul.appendChild(li);
+    xButton.setAttribute('id',i);
+    xButton.setAttribute("onclick", "removeSeries(" + i + ")");
+    xButton.setAttribute("class","sourceText fas fa-times");
+     $(xButton.sourceText).append('<i class="fas fa-times"></i>');
+    li.appendChild(xButton);
+}
+}
+/**************************
   /*initiate the autocomplete function on the "myInput" element, and pass along the series array as possible autocomplete values:*/
   autocomplete(document.getElementById("myInput"), series);
 function autocomplete(inp, arr) {
@@ -108,9 +132,7 @@ function autocomplete(inp, arr) {
         closeAllLists(e.target);
     });
   }
- 
- 
-
+ //------------------------------------
 function add_element_to_array()
 {
   //console.log(seriesCount);
@@ -122,28 +144,40 @@ function add_element_to_array()
   }
   else
   {
-
   var inputSeries = document.getElementById("myInput").value;
   if (inputSeries == "" || inputSeries == null){
-
     alert("You haven't entered anything");
   }
   else {
-
+    if(searchNewSeries(inputSeries)){
    if( searchSeries(inputSeries)){
     listSerials[x] = inputSeries;
- 
-
  document.getElementById("myInput").value = "";
-
  update_array(listSerials[x]);
- 
  seriesCount ++;
  x++;}
+  } 
+else{
+  document.getElementById("myInput").value = "";
+}
+}
+}
+}
+//------------------------------------
+function searchNewSeries(newSeries){
+  var flag = true;
+  for (var i = 0; i < listSerials.length; i++){
+    if (newSeries === listSerials[i]){
+      flag = false;
+    }
+    
   }
+if (flag == false){
+  alert("The show was already selected");
 }
+return flag;
 }
-
+//------------------------------------
 function searchSeries(enterSeries){
   var flag = false;
   for (var i = 0; i < series.length; i++){
@@ -153,14 +187,13 @@ function searchSeries(enterSeries){
     
   }
 if (flag == false){
-  alert("no such show was found");
+  alert("No such show was found");
 }
 return flag;
 }
-
+//------------------------------------
 function update_array(newSeries)
 {
-
   var li = document.createElement('li');
   var ul = document.getElementById('seriesList');
   var xButton = document.createElement("button");
@@ -175,36 +208,28 @@ function update_array(newSeries)
     li.appendChild(xButton);
 }
 
-
-
+//------------------------------------
 function removeSeries(itemid){
- 
   var item = document.getElementById(itemid);
   var ul = document.getElementById('seriesList');
     ul.removeChild(item);
     //console.log("old: " + listSerials.length);
-    
     delete listSerials[itemid];
-    //alert(listSerials);
+   
     //console.log("old lenght: " + listSerials.length);
     
-    Array.prototype.isNull = function (){
+   /* Array.prototype.isNull = function (){
       return this.join().replace(/,/g,'').length === 0;
-  };
+    };*/
     var checkArray = listSerials.every(function(v) { return v === null; });
    
     if(checkArray) {
-      resetAll();
-     // console.log("remove " ); 
-     
+      resetAll();  
   } else {
-   // console.log("new: " + listSerials);  
    seriesCount --;
   }
 }
-
-
-
+//------------------------------------
 function resetAll(){
   //console.log("reset ");
   document.getElementById("seriesList").innerHTML = "";
@@ -212,47 +237,7 @@ function resetAll(){
    seriesCount = 0;
  listSerials = [];
 }
+/*************** Initialize the dashboard ***********/
+init();
 
-function othername() {
-  listSerials[x] = document.getElementById("myInput").value;
-alert("Element: " + listSerials[x] + " Added at index " + x);
-x++;
-document.getElementById("myInput").value = "";
-displayList();
-/*document.getElementById("text1").value = "";
-  var input = document.getElementById("myInput").value;
-  alert(input);
-      
-      var x = document.getElementById("frm1");
-      var text = "";
-      var i;
-      for (i = 0; i < x.length ;i++) {
-        text += x.elements[i].value + "<br>";
-      }
-
-      list.push(input);
-      alert(list);
-     
-document.getElementById("seriesList").innerHTML = input;*/
-     
-}
-function displayList(){
-  
-  var e = "<hr/>";   
-  
- for (var y=0; y<listSerials.length; y++)
- {
-   e += "Element " + y + " = " + listSerials[y] + "<br/>";
- }
- document.getElementById("seriesList").innerHTML = e;//document.getElementById("seriesList").value = list;
-  
-}
-function display_array()
-{ 
-  var ul = document.getElementById('seriesList');
-    var li = document.createElement('li');
-    li.setAttribute('id',x);
-    li.appendChild(document.createTextNode(listSerials[0]));
-    ul.appendChild(li);
-  
-}
+/************************ End of app.js JavaScript file ************************ */ 

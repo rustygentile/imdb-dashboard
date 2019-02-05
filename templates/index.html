@@ -1,11 +1,11 @@
-<!-- Project 3 -->
+<!-- Project 3: imdb-dashboard -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <!-- All meta tags should be first in the header-->
   <meta charset="UTF-8">
-  <title>Project 3</title>
+  <title>Project 3: imdb-dashboard </title>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -20,19 +20,14 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
     crossorigin="anonymous">
 
-
-
   <!--The following uses data URI and can be used to avoid fake favicon requests:-->
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 
   <!-- css Style Scripts <link rel="stylesheet" href="../static/css/d3Style.css">-->
-  <link rel="stylesheet" href="static/css/style.css?v=01252019">
-
-
+  <link rel="stylesheet" href="static/css/style.css">
 </head>
 
 <body>
-
   <!-- navbar: A horizontal bar,top of a web page, offering a number of links to help the viewer to navigate the web site. Origin: Shortening of navigation bar. -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">
@@ -46,7 +41,7 @@
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
@@ -54,18 +49,16 @@
         <li class="nav-item">
           <a class="nav-link" href="/featured">Featured</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/API">API</a>
-        </li>
       </ul>
     </div>
   </nav>
   <!-- End of the Navigation bar-->
-
+  <!-- Start of Main container-->
   <div class="container">
     <div class="row">
-      <div class="col-2 px-1 bg-light position-fixed" id="sticky-sidebar">
-        <div class="card bg-light border-primary" style="width: 11rem;">
+      <!-- Start of side bar-->
+      <div class="col-2 px-1 position-fixed" id="sticky-sidebar">
+        <div class="card bg-light border-primary" style="width: 11rem; position:absolute; left:-50px;">
           <div class="card-header">
             <h5><i class="fas fa-search"></i>Search by Series:</h5>
           </div>
@@ -82,7 +75,7 @@
           </div>
         </div>
         <br>
-        <div class="card bg-light border-primary" style="width: 11rem;">
+        <div class="card bg-light border-primary" style="width: 11rem; position:absolute; left:-50px;top:210px;">
           <div class="card-header">
             <h5>Active Series: </h5>
           </div>
@@ -92,147 +85,107 @@
           </div>
         </div>
       </div>
-      <div class="col offset-3" id="main">
-        <!-- main body -->
+      <!-- End of side bar-->
+      <!-- main body for all the plots-->
+      <div class="col offset-2" id="main">
         <div class="row ">
+          <!-- Display first Bubble plot for the selected show-->
           <div class="col-md-10">
             <div id="bubble1"></div>
           </div>
         </div>
+
         <div class="row ">
+          <!-- Display 2nd Bubble plot for the selected show-->
           <div class="col-md-10">
             <div id="bubble2"></div>
           </div>
         </div>
-        
+
         <div class="row ">
+          <!-- Display 1st line plot for the selected show-->
           <div class="col-md-10">
             <div id="line1"></div>
           </div>
-          </div>
-
-          <div class="row ">
-            <div class="col-md-10">
-              <div id="line2"></div>
-            </div>
-            </div>
-
-            <div class="row ">
-              <div class="col-md-10">
-                <div id="timeline" style="height: 180px;"></div>
- 
-              </div>
-              </div>  
-        <div class="row ">
-          <div class="col-md-10">
-            <div id="bar1"></div>
-          </div>
-          </div>
-        
         </div>
 
+        <div class="row ">
+          <!-- Display 2nd line plot for the selected show-->
+          <div class="col-md-10">
+            <div id="line2"></div>
+          </div>
+        </div>
 
-        <!-- End of Main container-->
+        <div class="row ">
+          <!-- Display 1st Bar and Pie chart for the selected show-->
+          <div class="col-md-6">
+            <div id="bar1"></div>
+          </div>
+          <div class="col-md-6">
+            <div id="pie1"></div>
+          </div>
+        </div>
+
+        <div class="row ">
+          <!-- Display 2nd Bar and Pie chart for the selected show-->
+          <div class="col-md-6">
+            <div id="bar2"></div>
+          </div>
+          <div class="col-md-6">
+            <div id="pie2"></div>
+          </div>
+        </div>
+        <div class="row ">
+          <!-- Display 3rd Bar and Pie chart for the selected show-->
+          <div class="col-md-6">
+            <div id="bar3"></div>
+          </div>
+          <div class="col-md-6">
+            <div id="pie3"></div>
+          </div>
+        </div>
+         <!-- End of All the plots -->
       </div>
     </div>
-
   </div>
+  <!-- End of Main container-->
+
+
   <!-- Carousel Start-->
   <link rel="stylesheet" href="carousel.css">
   <div class = 'center_car'>
     <div class="contain">
 
-    <h1>Shows</h1>
+    <h1></h1>
       <div class="row">
         <div class="row__inner">
           
-          <a href="Pages/city_lat_vs_cloudiness/latvscloud.html">
-            <div class="tile leftpadding_tile">
-              <div class="tile__media">
-                <img class="tile__img" src="Resources/Images/plot_images/city_lat_vs_cloudiness.png" alt="Latitude VS Cloudiness"  />
-              </div>
-              <div class="tile__details">
-                <div class="tile__title">
-                  City Latitude VS Cloudiness
-                </div>
-              </div>
-            </div>
-          </a>
           
-          <a href="Pages/city_lat_vs_humidity/latvshumidity.html">
-            <div class="tile">
-              <div class="tile__media">
-                <img class="tile__img" src="Resources/Images/plot_images/city_lat_vs_humidity.png" alt="Latitude VS Humidity"  />
-              </div>
-              <div class="tile__details">
-                <div class="tile__title">
-                  City Latitude VS Humidity
-                </div>
-              </div>
-            </div>
-          </a>
-          
-          <a href="Pages/city_lat_vs_temp/latvstemp.html">
-            <div class="tile">
-              <div class="tile__media">
-                <img class="tile__img" src="Resources/Images/plot_images/city_lat_vs_max_temp.png" alt="Latitude VS Max Temperature"  />
-              </div>
-              <div class="tile__details">
-                <div class="tile__title">
-                  City Latitude VS Max Temperature
-                </div>
-              </div>
-            </div>
-          </a>
-          
-          <a href="Pages/city_lat_vs_wind/latvswind.html">
-            <div class="tile">
-              <div class="tile__media">
-                <img class="tile__img" src="Resources/Images/plot_images/city_lat_vs_windspeed.png" alt="Latitude VS Wind Speed"  />
-              </div>
-              <div class="tile__details">
-                <div class="tile__title">
-                  City Latitude VS Wind Speed
-                </div>
-              </div>
-            </div>
-          </a>
-
-        </div>
-      </div>
     
   </div>
+      </div>
+    </div>
+  </div>
   <!-- Carousel End-->
-  
   <footer>
     <!-- Copyright -->
     <p>
-      Project 3 | <i class="far fa-copyright"></i> Copyright 2019:
-    </p>
-  </footer>
-</div>
-  <footer>
-    <!-- Copyright -->
-    <p>
-      Project 3 | <i class="far fa-copyright"></i> Copyright 2019:
+      Project 3 | <i class="far fa-copyright"></i> Copyright 2019: Team I don't want no Data Scrub
     </p>
   </footer>
 
-  <!-- Plotly and d3 -->
+
+
+  <!-- Plotly and d3 and javascript files -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
-
-  const allShows = JSON.parse('{{ all_shows | tojson | safe}}');
-
+    const allShows = JSON.parse('{{ all_shows | tojson | safe}}');
   </script>
   <script type="text/javascript" src="static/js/app.js"></script>
   <script type="text/javascript" src="static/js/plots.js"></script>
 
 </body>
-
 </html>
 <!------------ End of HTML ---------------->

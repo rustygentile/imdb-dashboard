@@ -42,9 +42,111 @@ def about():
 #--------------------
 # Route to render featured.html template using csv data
 @app.route("/featured")
-def finals():
+def featured():
 
     return render_template("featured.html")
+#--------------------
+# Route to render the Life of Brian featured plots 
+@app.route("/life_of_brian")
+def life_of_brian():
+    ## Family Guy Query -- Life of Brian
+    family_guy_episodes = session.query(Episode)\
+            .filter(Episode.parent_tconst == 182576)\
+            .all()
+        
+    episode_dates = []
+    # Unpack the data
+    for e in family_guy_episodes:
+        try:
+            episode_dates.append(e.original_air_date.strftime('%Y-%m-%d'))
+        except AttributeError:
+            episode_dates.append(None)
+        
+    episode_avg_ratings = [e.avg_rating for e in family_guy_episodes]
+    episode_votes = [e.number_votes for e in family_guy_episodes]
+    episode_titles = [e.title for e in family_guy_episodes]
+    episode_seasons = [e.season for e in family_guy_episodes]
+    episode_episodes = [e.episode for e in family_guy_episodes]
+
+    family_guy_chart_data = {
+        'title': episode_titles,
+        'original_air_date': episode_dates,
+        'rating': episode_avg_ratings,
+        'votes': episode_votes,
+        'season_number': episode_seasons,
+        'episode_number': episode_episodes,
+        'hover_text': episode_titles
+    }
+
+    return jsonify(family_guy_chart_data)
+
+#--------------------
+# Route to render Rick and Morty mania featured plots 
+@app.route("/rick_and_morty_mania")
+def rick_and_morty_mania():
+
+    selected_tconsts = [96697,182576,121955,2861424]
+
+    big_four_data = []
+    for tconst in selected_tconsts:
+
+        # Query the series table    
+        series_query = session.query(Series.title, Series.num_seasons)\
+            .filter(Series.tconst == tconst)\
+            .first()
+        
+        number_of_seasons = series_query.num_seasons
+        series_title = series_query.title
+
+        # Calculate by season
+        season_number = []
+        season_rating = []
+        season_votes = []
+        season_episode_count = []
+        series_name = []
+
+        for i in range(1, number_of_seasons + 1):
+            season_rating_query = session.query(func.avg(Episode.avg_rating))\
+                            .filter(Episode.parent_tconst == tconst)\
+                            .filter(Episode.season==i)\
+                            .first()            
+
+            try:
+                season_rating.append(float(season_rating_query[0]))
+            except TypeError:
+                season_rating.append(None)
+
+            season_votes_query = session.query(func.sum(Episode.number_votes))\
+                            .filter(Episode.parent_tconst == tconst)\
+                            .filter(Episode.season==i)\
+                            .first()
+
+            try:
+                season_votes.append(float(season_votes_query[0]))
+            except TypeError:
+                season_votes.append(None)
+
+            season_episode_count_query = session.query(Episode)\
+                            .filter(Episode.parent_tconst == tconst)\
+                            .filter(Episode.season==i)\
+                            .count()
+
+            try:
+                season_episode_count.append(season_episode_count_query)
+            except TypeError:
+                season_episode_count.append(None)
+
+            season_number.append(i)
+
+        big_four_data.append({
+            'title': series_title,
+            'season_number': season_number,
+            'rating': season_rating,
+            'votes': season_votes
+            })
+
+    return jsonify(big_four_data)
+
 #--------------------
 #error handler
 @app.errorhandler(404)

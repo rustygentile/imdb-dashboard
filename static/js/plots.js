@@ -57,7 +57,7 @@ function buildPlot(sample) {
         y: showData["rating"],
         name: seriesData["title"],
         showlegend: true,
-        hovertext: showData["plot"],
+        hovertext: showData["title"],
         hoverinfo: {
           bordercolor: 'black'
         },
@@ -70,7 +70,7 @@ function buildPlot(sample) {
         y: showData["votes"],
         name: seriesData["title"],
         showlegend: true,
-        hovertext: showData["plot"],
+        hovertext: showData["title"],
         hoverinfo: {
           bordercolor: 'black'
         },
@@ -111,7 +111,7 @@ function buildPlot(sample) {
     var LINE1 = document.getElementById('line1');
     Plotly.newPlot(LINE1, traceLine1, layoutLine1);
 
-    var layoutLine2 = layout_values('Average Votes per Season by Season Numbers', 'Season Numbers', 'Average Votes per Season');
+    var layoutLine2 = layout_values('Total Votes per Season by Season Numbers', 'Season Numbers', 'Total Votes per Season');
     var LINE2 = document.getElementById('line2');
     Plotly.newPlot(LINE2, traceLine2, layoutLine2);
 

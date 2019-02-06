@@ -20,7 +20,7 @@ def add_to_db(series_list_file, create_tables):
             except KeyError:
                 result.title = ''
             try:
-                result.pic_url = i['cover_url']
+                result.pic_url = i['cover url']
             except KeyError:
                 result.pic_url = ''
             try:

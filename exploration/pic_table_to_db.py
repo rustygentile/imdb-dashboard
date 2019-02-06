@@ -23,8 +23,9 @@ endpoint = 'imdb-explorer.clhfspuaimbp.us-east-1.rds.amazonaws.com'
 args = "ssl_ca=../database/config/rds-ca-2015-us-east-1-root.pem"
 
 # AWS username and password. 
-rds_connection_string = f"{user}:{password}@{endpoint}/imdb_lean2?{args}"
+rds_connection_string = f"{user}:{password}@{endpoint}/imdb_production?{args}"
 engine = create_engine(f'mysql://{rds_connection_string}')
+
 
 # Connection attachment. 
 conn = engine.connect()
@@ -39,11 +40,10 @@ session = Session(engine)
 class Pic(Base):
   __tablename__ = 'pic'
   id = Column(Integer, primary_key=True)
-  tconst = Column(Integer, ForeignKey('series.tconst'))
+  tconst = Column(Integer)
   title = Column(String(255))
   pic_url = Column(String(255))
   synopsis = Column(String(255))
-  series_id = relationship('Series', foreign_keys=[tconst])
 
 # Create Episode Class for SQL Database Table
 
@@ -112,7 +112,7 @@ for i in series:
     except KeyError:
         result.title = ''
     try:
-        result.pic_url = i['cover_url']
+        result.pic_url = i['cover url']
     except KeyError:
         result.pic_url = ''
     try:
@@ -121,7 +121,8 @@ for i in series:
         result.synopsis = 'No Synopsis is currently found in the IMDb Database'
 
 
-    print(i)
+    print(result.pic_url)
+    print(i['cover url'])
     print("Commit to Database!!!!!!!")
     session.add(result)
     session.commit()

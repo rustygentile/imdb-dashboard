@@ -7,10 +7,10 @@ html {
   align-items: center;
   width: 100%;
 }
-.center_car{
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
+.center_car{ 
+  position: relative !important;
+  width: 100% !important;
+  margin: 0 auto !important;
 }
 * {
   box-sizing: border-box;

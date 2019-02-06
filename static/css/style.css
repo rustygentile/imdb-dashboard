@@ -58,7 +58,7 @@ border-right:0;
     display: inline-block;
   }
   input {
-    border: 1px solid transparent;
+    border: 1px solid #f1f1f1;
     background-color: #f1f1f1;
     padding: 10px;
     font-size: 16px;
@@ -91,7 +91,7 @@ border-right:0;
   .autocomplete-items div {
     padding: 10px;
     cursor: pointer;
-    background-color: transparent; 
+    background-color: #f1f1f1; 
     border-bottom: 1px solid #d4d4d4; 
   }
   
@@ -103,7 +103,7 @@ border-right:0;
   /*when navigating through the items using the arrow keys:*/
   .autocomplete-active {
     background-color: DodgerBlue !important; 
-    color: transparent; 
+    color: #ffffff; 
   }
   #myInput {
 

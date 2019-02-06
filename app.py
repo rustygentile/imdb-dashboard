@@ -29,9 +29,22 @@ def home():
         titles.append(i.title)
     
     name_blob = {'id': ids, 'title': titles}
-    conn.close()
+    
+    # Pull all Carousel data. Title, Synopsis, and url of picture.
+    pics = session.query(Pic)
+    pic_url = []
+    title = []
+    synopsis = []
+    for i in pics:
+        pic_url.append(i.pic_url)
+        title.append(i.title)
+        synopsis.append(i.synopsis)
 
-    return render_template("index.html", all_shows=name_blob)
+    car_blob = {'title': title, 'synopsis': synopsis, 'pic_url': pic_url}
+   
+    conn.close()
+    return render_template("index.html", all_shows=name_blob, all_car=car_blob)
+
 #--------------------
 # Route to render about.html template using csv data
 @app.route("/about")
@@ -118,7 +131,7 @@ def rick_and_morty_mania():
     # Database connection
     conn, session = create_connection(False, './exploration/')
 
-    selected_tconsts = [96697,182576,121955,2861424]
+    selected_tconsts = [96697,182576,121955,397306,2861424]
 
     big_four_data = []
     for tconst in selected_tconsts:

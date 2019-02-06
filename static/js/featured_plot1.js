@@ -4,12 +4,25 @@ function buildRickAndMortyMania() {
     console.log(data);
 
     traceLineRating1 = [{
-      x: data[0]["season_number"],
-      y: data[0]["rating"],
-      name: data[0]["title"],
-      showlegend: true,
-      mode: 'lines+markers'
-    }];
+        x: data[0]["season_number"],
+        y: data[0]["rating"],
+        name: data[0]["title"],
+        showlegend: false,
+        mode: 'lines+markers'
+      },
+      {
+        x: [7, 20],
+        y: [8.5, 7.25],
+        showlegend: false,
+        mode: "text",
+        align: "center",
+        text: ["Simpsons Mania", "Zombie Simpsons"],
+        type: "scattergl",
+        textfont: {
+          size: 20
+        }
+      }
+    ];
 
     var traceLineRating2 = [];
 
@@ -23,14 +36,23 @@ function buildRickAndMortyMania() {
       };
     };
 
+    traceLineRating2.push({
+      x: [9, 30],
+      y: [9, 7.5],
+      showlegend: false,
+      mode: "text",
+      align: "center",
+      text: ["Rick and Morty Mania", "???"],
+      type: "scattergl",
+      textfont: {
+        size: 20
+      }
+    });
+
     var layoutRating1 = {
 
       width: 800,
       height: 600,
-
-      title: {
-        text: 'Average Rating per Season'
-      },
 
       margin: {
         top: 10,
@@ -91,61 +113,11 @@ function buildRickAndMortyMania() {
 
     };
 
-
     var lineRick1 = document.getElementById('featured-rick-1');
     Plotly.newPlot(lineRick1, traceLineRating1, layoutRating1);
 
     var lineRick2 = document.getElementById('featured-rick-2');
     Plotly.newPlot(lineRick2, traceLineRating2, layoutRating2);
-
-
-
-    //var layoutVotes = layout_values('Average Votes per Season by Season Numbers', 'Season Numbers', 'Average Votes per Season');
-
-
-    //   annotations: [
-    //     {
-    //       x: '2013-11-24',
-    //       y: 4.3,
-    //       xref: 'x',
-    //       yref: 'y',
-    //       text: 'Life of Brian',
-    //       showarrow: true,
-    //       arrowhead: 2,
-    //       arrowsize: 1,
-    //       arrowwidth: 2,
-    //       arrowcolor: '#ff0000',
-    //       ax: -100,
-    //       ay: -20,
-    //       bordercolor: '#000000',
-    //       borderwidth: 1,
-    //       borderpad: 4,
-    //       bgcolor: '#ffffff',
-    //       opacity: 0.8
-    //     },     {
-    //       x: '2013-12-15',
-    //       y: 7.6,
-    //       xref: 'x',
-    //       yref: 'y',
-    //       text: 'Christmas Guy',
-    //       showarrow: true,
-    //       arrowhead: 2,
-    //       arrowsize: 1,
-    //       arrowwidth: 2,
-    //       arrowcolor: '#ff0000',
-    //       ax: 100,
-    //       ay: -50,
-    //       bordercolor: '#000000',
-    //       borderwidth: 1,
-    //       borderpad: 4,
-    //       bgcolor: '#ffffff',
-    //       opacity: 0.8
-    //     }
-    // ]
-    // };
-
-    // var featured1 = document.getElementById('featured-chart1');
-    // Plotly.newPlot(featured1, [traceLifeOfBrian], layoutFeatured1);
 
   });
 

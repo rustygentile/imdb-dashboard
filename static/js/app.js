@@ -8,6 +8,9 @@ var listSerials = [];
 // allShows must be passed in from flask -> index.html 
 let series = allShows.title;
 let seriesIds = allShows.id;
+let synopsis = allCar.synopsis;
+let title = allCar.title;
+let pic_url = allCar.pic_url;
 
 /*************** Initialize the dashboard ***********/
 function init() {
@@ -15,6 +18,40 @@ function init() {
   x =2;
   listSerials = ['The Simpsons','Rick and Morty'];
 
+for (var j=0; j<title.length; j++){
+  var car_div = document.getElementById("car_div");
+  //var div = document.createElement("div");
+  var leftpadding_tile = document.createElement("div");
+  var plot = document.createElement("div");
+  var plot_detail = document.createElement("div");
+  var s_title = document.createElement("div");
+  var s_title_detail = document.createElement("div");
+  var tile_media = document.createElement("div");
+  var img = document.createElement("img");
+  var current_img = pic_url[j];
+  var current_title = title[j];
+  var current_plot = synopsis[j];
+
+//Set attributes for image load
+  leftpadding_tile.setAttribute('class','tile leftpadding_tile');
+  tile_media.setAttribute('class', 'tile__media');
+  img.setAttribute('class', 'tile__img');
+  img.setAttribute('src', current_img);
+
+// Set attributes for title load
+  s_title_detail.setAttribute('class', 'tile__title');
+  s_title_detail.setAttribute('id', 'wrap');
+  s_title.setAttribute('class','tile__details');
+  s_title_detail.innerHTML = current_title + ': <br>' + current_plot;
+
+  s_title.appendChild(s_title_detail);
+  leftpadding_tile.appendChild(s_title);
+  
+  tile_media.appendChild(img);
+  leftpadding_tile.appendChild(tile_media);
+  car_div.appendChild(leftpadding_tile);
+
+}
 for (var i=0; i<x; i++)
 {
   var li = document.createElement('li');

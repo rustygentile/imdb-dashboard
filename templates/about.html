@@ -41,7 +41,7 @@
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/index">Home</a>
+          <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
@@ -60,13 +60,37 @@
 
       <div class="row ">
         <div class="col-md-12">
-          <p>This project was inspired by a YouTube film titled "The Fall of the Simpsons"...
+          <p>This project was inspired by a YouTube documentary titled "The Fall of the Simpsons". In particular, a
+            figure which trends the average IMDB user rating of each Simpsons espisode over time. We started to wonder
+            what else could be done with IMDB data. The answer is a lot! Too much in fact. To limit scope, we selected
+            26 TV series similar to the Simpsons and built a dashboard around the idea of the figures below. Users can
+            add
+            up to seven series to the trend and look for patterns and interactions.
+          </p>
+          <p>
+            The project uses two sources of data. First, the <a href="https://www.imdb.com/interfaces/">.tsv files</a> which IMDB releases nightly. These
+            contain a subset of the actual IMDB database. Second, the <a href="https://imdbpy.sourceforge.io/">IMDbPy</a>
+            package was used for information not
+            not available in the .tsv files. The site is powered by an Amazon RDS MySQL instance and heroku running a
+            python Flask
+            application on the back end. On the front end, we used plotly.js to render most of the figures.
           </p>
         </div>
       </div>
+      </br>
       <div class="row ">
         <div class="col-md-12">
           <img src="../static/images/Fall_of_the_Simpsons_Episode_Ratings.PNG">
+        </div>
+      </div>
+      </br>
+      <div class="row ">
+        <div class="col-md-12">
+          <p>Many fans consider the turning point for the series to be an episode titled "The Principal and the Pauper"
+            from season 8. Actor Harry Shearer has referred to it as "a horrible mistake". Episodes more recent than
+            season 8 are
+            often referred to as "Zombie Simpsons", implying the show has become a lifeless shell of its former self.
+          </p>
         </div>
       </div>
       </br>

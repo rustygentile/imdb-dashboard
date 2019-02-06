@@ -38,10 +38,10 @@ def home():
     for i in pics:
         pic_url.append(i.pic_url)
         title.append(i.title)
-        synopsis.append(i.synopsis)
+        synopsis.append(i.synopsis.replace('"',''))
 
     car_blob = {'title': title, 'synopsis': synopsis, 'pic_url': pic_url}
-   
+
     conn.close()
     session.close()
     return render_template("index.html", all_shows=name_blob, all_car=car_blob)

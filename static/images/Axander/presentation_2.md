@@ -21,11 +21,7 @@
 ---
 
 ## Dive deeper
-![piecharts_1](images/simpsons.png)
-![piecharts_2](images/rick_morty.png)
-![piecharts_3](images/king_of_hill.png)
-![piecharts_4](images/family_guy.png)
-![piecharts_5](images/boondocks.png)
+![piecharts_1](images/pie_collage.png)
 
 ---
 ## Writers seem important. Build a writer report

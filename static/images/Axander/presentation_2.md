@@ -14,7 +14,7 @@
 ![ten_highest](images/tenHighestRatingSeasons.png)
 
 ---
-## Find some trends
+## Finding trends
 
 ![actor_actress](images/actor_to_actress_bar_2.png)
 

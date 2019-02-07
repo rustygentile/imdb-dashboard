@@ -1,6 +1,6 @@
 # IMDB
 
-## Step 1: extraxt raw .tv.gz files from IMDB
+## Step 1: extract raw .tv.gz files from IMDB
 
 ![Raw_File](raw_gz_file_1.png)
 

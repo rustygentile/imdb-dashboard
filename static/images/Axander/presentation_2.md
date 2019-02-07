@@ -4,7 +4,7 @@
 ### Sample Queries
 ![sql_1_query](images/sql_code_1.png)
 ![sql_2_query](images/sql_code_2.png)
-![sql_writer](images/every_season_by_series.png)
+![sql_writer](every_season_by_series.png)
 
 ---
 ## Sample data deep dive

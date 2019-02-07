@@ -64,16 +64,17 @@
             figure which trends the average IMDB user rating of each Simpsons espisode over time. We started to wonder
             what else could be done with IMDB data. The answer is a lot! Too much in fact. To limit scope, we selected
             26 TV series similar to the Simpsons and built a dashboard around the idea of the figures below. Users can
-            add
-            up to seven series to the trend and look for patterns and interactions.
+            add up to seven series to the trend and look for patterns and interactions.
           </p>
           <p>
-            The project uses two sources of data. First, the <a href="https://www.imdb.com/interfaces/">.tsv files</a> which IMDB releases nightly. These
-            contain a subset of the actual IMDB database. Second, the <a href="https://imdbpy.sourceforge.io/">IMDbPy</a>
-            package was used for information not
-            not available in the .tsv files. The site is powered by an Amazon RDS MySQL instance and heroku running a
-            python Flask
-            application on the back end. On the front end, we used plotly.js to render most of the figures.
+            The project uses two sources of data. First, the <a href="https://www.imdb.com/interfaces/">.tsv files</a>
+            which IMDB releases nightly. These contain a subset of the actual IMDB database. We analyzed these and
+            derived an entity relationship <a href="static/images/imdb_database_erDiagram.png">diagram</a>.
+            However, we found some columns needed to build the site were missing. For example, the original air date
+            of each episode. To overcome this, the<a href="https://imdbpy.sourceforge.io/">IMDbPy</a> package was used
+            for information not available in the .tsv files. The site is powered by an Amazon RDS MySQL instance and
+            heroku running a python Flask application on the back end. On the front end, we used plotly.js to render
+            most of the figures.
           </p>
         </div>
       </div>

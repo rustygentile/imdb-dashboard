@@ -42,14 +42,14 @@ a:hover {
 }
 }*/
 .contain {
-  width: 100%;
+  width: 90%;
 }
 #car_row {
   overflow: scroll;
   overflow-y: hidden;
   /* border: solid 5px lime; */
-  padding: 0px 10%;
-  width: 100%;
+  
+  width: 95%;
 }
 .center_car{ 
   position: relative !important;

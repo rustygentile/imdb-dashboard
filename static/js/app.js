@@ -14,9 +14,9 @@ let pic_url = allCar.pic_url;
 
 /*************** Initialize the dashboard ***********/
 function init() {
-  seriesCount = 1;
-  x = 1;
-  listSerials = ['The Simpsons'];
+  seriesCount = 2;
+  x = 2;
+  listSerials = ['The Simpsons','Aeon Flux'];
 
 for (var j=0; j<title.length; j++) {
   var car_div = document.getElementById("car_div");

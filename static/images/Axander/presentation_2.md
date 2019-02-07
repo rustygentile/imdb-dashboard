@@ -14,14 +14,18 @@
 ![ten_highest](images/tenHighestRatingSeasons.png)
 
 ---
-## Finding trends
+## Find some trends
 
-![actor_actress](images/actor_to_actress_bar_2.png)
+![actor_actress](images/actor_to_actress_bar_2.PNG)
 
 ---
 
 ## Dive deeper
-![piecharts_1](images/pie_collage.png)
+![piecharts_1](images/simpsons.PNG)
+![piecharts_2](images/rick_morty.PNG)
+![piecharts_3](images/king_of_hill.PNG)
+![piecharts_4](images/family_guy.PNG)
+![piecharts_5](images/boondocks.PNG)
 
 ---
 ## Writers seem important. Build a writer report

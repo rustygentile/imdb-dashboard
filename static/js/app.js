@@ -18,7 +18,7 @@ function init() {
   x = 1;
   listSerials = ['The Simpsons'];
 
-for (var j=0; j<title.length; j++)
+for (var j=0; j<title.length; j++) {
   var car_div = document.getElementById("car_div");
   //var div = document.createElement("div");
   var leftpadding_tile = document.createElement("div");

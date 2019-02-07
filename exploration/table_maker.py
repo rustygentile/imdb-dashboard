@@ -49,7 +49,7 @@ def create_connection(make_tables=False, folder_helper=''):
     endpoint = 'imdb-explorer.clhfspuaimbp.us-east-1.rds.amazonaws.com'
     args = f'ssl_ca={folder_helper}../database/config/rds-ca-2015-us-east-1-root.pem'
     print(args)
-    rds_connection_string = f"{user}:{password}@{endpoint}/imdb_lean2?{args}"
+    rds_connection_string = f"{user}:{password}@{endpoint}/imdb_production?{args}"
     engine = create_engine(f'mysql://{rds_connection_string}')
     conn = engine.connect()
     if make_tables:

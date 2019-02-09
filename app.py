@@ -6,7 +6,7 @@ from flask import Flask, render_template, redirect, make_response,request, jsoni
 import os
 import json
 import numpy as np
-from exploration.table_maker import *
+from exploration.database_direct_data_scripts.table_maker import *
 import datetime as dt
 from sqlalchemy.sql import func
 

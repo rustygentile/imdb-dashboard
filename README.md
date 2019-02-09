@@ -9,7 +9,7 @@ https://imdb-dashboard.herokuapp.com/
 * [Rusty Gentile](https://github.com/rustygentile)
 * [Minal Jajoo](https://github.com/minaljajoo)
 * [Scott Nubar](https://github.com/Rasbeartin)
-* [Juan Carlos Medina](https://github.com/JCMedinaG)
+* [Jean Carlos Medina](https://github.com/JCMedinaG)
 * [Axander Wilson](https://github.com/AxanderW)
 
 ## Files and Folders

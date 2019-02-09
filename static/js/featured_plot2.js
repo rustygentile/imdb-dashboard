@@ -1,3 +1,7 @@
+/*   Project 3: imdb-dashboard 
+JavaScript file: Purpose- Plot for the feachured page   */
+
+//----------------------------------------
 function buildLifeOfBrian() {
 
   d3.json("/life_of_brian").then(function (data) {
@@ -94,5 +98,6 @@ function buildLifeOfBrian() {
   });
 
 };
-
+/*************** Initialize the plot ***********/
 buildLifeOfBrian();
+/************************ End of feachured_plot2.js JavaScript file ************************ */

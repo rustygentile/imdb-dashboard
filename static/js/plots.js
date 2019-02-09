@@ -1,21 +1,17 @@
+/*   Project 3: imdb-dashboard 
+JavaScript file: plots.js - Get all the list of shows and plot different plots  */
+/*************** Set all the variables ***********/
 //---------------------
 function defaultPlots() {
   var listDefaultID = get_show_id(listSerials);
-  // console.log("listID: ");
-  // console.log(listDefaultID );
-
   buildPlot(listDefaultID);
 }
 //-----------------------------------------------
 // Update the page each time with new sample
 function update_plots() {
-  //console.log(listSerials);
   // Fetch new data each time a new sample is selected
   // Use the new sample from the list to build the updated plots
   var listID = get_show_id(listSerials);
-  // console.log("listID: ");
-  //console.log(listID);
-
   buildPlot(listID);
 }
 //--------------- End of main functions ------------
@@ -175,6 +171,8 @@ function buildPlot(sample) {
   });
 }
 //-----------------
+//Function: layout_values
+//Set all the layout paramenters for the scatter plot and line chart
 function layout_values(title, xaxis, yaxis) {
   var layoutVal = {
     title: '<b>' + title + '</b>',
@@ -208,6 +206,8 @@ function layout_values(title, xaxis, yaxis) {
 }
 
 //-----------------
+//Function: get_bar_layout
+//Set all the layout paramenters for the bar chart
 function get_bar_layout(titleBar, yaxisBar) {
   var layoutBar = {
     height: 500,
@@ -219,7 +219,7 @@ function get_bar_layout(titleBar, yaxisBar) {
       left: 10
     },
     paper_bgcolor: "rgba(0,0,0,0)",
-    title: '<b>'+titleBar+'</b>',
+    title: '<b>' + titleBar + '</b>',
     yaxis: {
       title: yaxisBar,
       linecolor: 'lightgrey',
@@ -236,25 +236,27 @@ function get_bar_layout(titleBar, yaxisBar) {
   return layoutBar;
 }
 //--------------------------------
-function get_pie_layout(){
+//Function: get_pie_layout
+//Set all the layout paramenters for the pie chart
+function get_pie_layout() {
   var pieLayout = {
-  height: 400,
-  width: 500,
-  margin: {
-    top: 10,
-    bottom: 10,
-    right: 10,
-    left: 10
-  },
-  line: {
-    color: 'lightgrey',
-    width: 1
-   
-  },
-  
-  paper_bgcolor: "rgba(0,0,0,0)"
-};
-return pieLayout;
+    height: 400,
+    width: 500,
+    margin: {
+      top: 10,
+      bottom: 10,
+      right: 10,
+      left: 10
+    },
+    line: {
+      color: 'lightgrey',
+      width: 1
+
+    },
+
+    paper_bgcolor: "rgba(0,0,0,0)"
+  };
+  return pieLayout;
 }
 /*************** Initialize the dashboard ***********/
 defaultPlots();

@@ -1,3 +1,5 @@
+############ Project 3: imdb-dashboard ########################
+
 # Importing Dependencies
 import pandas as pd
 from flask import Flask, render_template, redirect, make_response,request, jsonify
@@ -85,7 +87,7 @@ def dbtest():
     conn.close()
     session.close()
     return jsonify(all_names)
-
+#--------------------
 # Route to render the Life of Brian featured plots 
 @app.route("/life_of_brian")
 def life_of_brian():
@@ -197,7 +199,7 @@ def rick_and_morty_mania():
     conn.close()
     session.close()
     return jsonify(big_four_data)
-
+#--------------------
 @app.route("/plotdata/all_plots/<series_tconsts>")
 def all_plots(series_tconsts):
 

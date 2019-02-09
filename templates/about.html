@@ -1,6 +1,9 @@
 <!-- Project 3: imdb-dashboard -->
+<!-- Index.html: The dashboard/ Home page for the website-->
+<!--############################################################-->
 <!DOCTYPE html>
 <html lang="en">
+<!--########################### Header #################################-->
 
 <head>
   <!-- All meta tags should be first in the header-->
@@ -23,9 +26,10 @@
   <!--The following uses data URI and can be used to avoid fake favicon requests:-->
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 
-  <!-- css Style Scripts <link rel="stylesheet" href="../static/css/d3Style.css">-->
+  <!-- css Style Scripts -->
   <link rel="stylesheet" href="static/css/style.css">
 </head>
+<!--########################### Body for html #################################-->
 
 <body>
   <!-- navbar: A horizontal bar,top of a web page, offering a number of links to help the viewer to navigate the web site. Origin: Shortening of navigation bar. -->
@@ -53,6 +57,8 @@
     </div>
   </nav>
   <!-- End of the Navigation bar-->
+  <!--------------------------------------------------------->
+  <!-- Start of Main container-->
   <div class="wrapper">
     <div class="container margin-top-30 margin-bottom-30">
       <!-- main body -->
@@ -70,13 +76,13 @@
           </p>
         </div>
       </div>
-      </br>
+      <br>
       <div class="row ">
         <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
-          <img src="../static/images/Fall_of_the_Simpsons_Episode_Ratings.PNG">
+          <img src="../static/images/Fall_of_the_Simpsons_Episode_Ratings.PNG" class="img-fluid">
         </div>
       </div>
-      </br>
+      <br>
       <div class="row ">
         <div class="col-md-12">
           <p>
@@ -96,16 +102,18 @@
           </p>
         </div>
       </div>
-      </br>
+      <br>
       <div class="row ">
         <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 ">
-          <img src="../static/images/Zombie_Simpsons.PNG">
+          <img src="../static/images/Zombie_Simpsons.PNG" class="img-fluid">
         </div>
       </div>
     </div>
   </div>
+  <!-- End of Main container-->
+  <!--------------------------------------------------------->
 
-
+  <!-- Footer for the page -->
   <footer>
     <!-- Copyright -->
     <p>
@@ -113,12 +121,11 @@
     </p>
   </footer>
 
-
+  <!--################## All the javascripts used for this page ####################### -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
   <script type="text/javascript" src="../static/js/app.js"></script>
-
+  <!-- End of the scripts -->
 </body>
 
 </html>

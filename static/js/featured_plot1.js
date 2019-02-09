@@ -1,8 +1,11 @@
+/*   Project 3: imdb-dashboard 
+JavaScript file: Purpose- Plots for the feachured page   */
+
+//----------------------------------------
 function buildRickAndMortyMania() {
 
   d3.json("/rick_and_morty_mania").then(function (data) {
-    console.log(data);
-
+    //console.log(data);
     traceLineRating1 = [{
         x: data[0]["season_number"],
         y: data[0]["rating"],
@@ -122,5 +125,6 @@ function buildRickAndMortyMania() {
   });
 
 };
-
+/*************** Initialize the plots ***********/
 buildRickAndMortyMania();
+/************************ End of feachured_plot1.js JavaScript file ************************ */

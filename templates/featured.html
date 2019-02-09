@@ -1,6 +1,9 @@
 <!-- Project 3: imdb-dashboard -->
+<!-- featured.html: The featured page for the website -->
+<!--############################################################-->
 <!DOCTYPE html>
 <html lang="en">
+<!--########################### Header #################################-->
 
 <head>
   <!-- All meta tags should be first in the header-->
@@ -10,11 +13,10 @@
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
     crossorigin="anonymous"></script>
-  <!-- Bootstrap links -->
 
+  <!-- Bootstrap links -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
-
   <!-- Bootstrap css -->
   <link rel="stylesheet" href="static/css/bootstrap_simplex.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -23,9 +25,10 @@
   <!--The following uses data URI and can be used to avoid fake favicon requests:-->
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 
-  <!-- css Style Scripts <link rel="stylesheet" href="../static/css/d3Style.css">-->
+  <!-- css Style Scripts-->
   <link rel="stylesheet" href="static/css/style.css">
 </head>
+<!--########################### Body for html #################################-->
 
 <body>
   <!-- navbar: A horizontal bar,top of a web page, offering a number of links to help the viewer to navigate the web site. Origin: Shortening of navigation bar. -->
@@ -52,14 +55,16 @@
       </ul>
     </div>
   </nav>
-
+  <!-- End of the Navigation bar-->
+  <!--------------------------------------------------------->
+  <!-- Start of Main container-->
   <div class="wrapper">
     <div class="container margin-top-30">
       <!-- main body -->
       <H1>Featured</H1>
 
       <p>Here are some views of the data we found interesting. Enjoy!</p>
-      </br>
+      <br>
 
       <!-- Word cloud -->
 
@@ -67,7 +72,7 @@
         <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
 
 
-          <svg width="960" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg" class ="highlight">
+          <svg width="960" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg" class="highlight">
             <g></g>
             <g transform="translate(480,300)scale(1,1)"><text text-anchor="middle" transform="translate(-95,47)rotate(-29.999999999999993)"
                 style="font-size: 10px; font-family: Impact; fill: rgb(231, 186, 82);">Open</text><text text-anchor="middle"
@@ -205,7 +210,7 @@
         </div>
       </div>
       </br>
-      </br>
+      <br>
 
       <!-- Zombie Rick and Morty -->
       <div class="row ">
@@ -229,7 +234,7 @@
       </div>
       <div class="row ">
         <div class="col-md-12">
-          </br>
+          <br>
           <p>
             Comparing the Simpsons to its main competitors, South Park and Family guy, a similar trend can be seen in
             ratings. Though the drop is not as sharp as the Simpsons' Season 8. All of these series were successful
@@ -251,7 +256,7 @@
           <div id="featured-rick-2"></div>
         </div>
       </div>
-      </br>
+      <br>
 
       <!-- Life of Brian -->
       <div class="row ">
@@ -277,7 +282,7 @@
           <div id="featured-brian"></div>
         </div>
       </div>
-      </br>
+      <br>
 
 
       <!-- Time Line -->
@@ -299,21 +304,23 @@
           <div id="timeline" style="height: 900px;"></div>
         </div>
       </div>
+      <!--------------------------------------------------------->
 
+      <!-- Footer for the page -->
       <footer>
         <!-- Copyright -->
         <p>
           Project 3 | <i class="far fa-copyright"></i> Copyright 2019: Team I don't want no Data Scrub
         </p>
       </footer>
-
+      <!--################## All the javascripts used for this page ####################### -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
       <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script type="text/javascript" src="../static/js/featured_plot1.js"></script>
       <script type="text/javascript" src="../static/js/featured_plot2.js"></script>
       <script type="text/javascript" src="../static/js/time.js"></script>
-
+      <!-- End of the scripts -->
 </body>
 
 </html>

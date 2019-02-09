@@ -3,7 +3,10 @@ from dateutil import parser
 from imdb import IMDb
 from imdb import helpers
 from table_maker import *
-
+# IF THE SERIES TABLE HAS NOT BEEN CREATED THEN RUN load_series FIRST. 
+# Run this script with a value of false if the episdoes table already exists.
+# see load_series for instructions.
+# This script will append episodes directly to episodes table in the database. 
 def add_to_db(series_list_file, create_tables):
     conn, session = create_connection(eval(create_tables))
     ia = IMDb()

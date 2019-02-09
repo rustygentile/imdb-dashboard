@@ -1,3 +1,8 @@
+# This script does not get directly run.
+# The load_ scripts will run this script if a true false is given
+# at the time they are ran. This script will attempt to create all 3 tables
+# in a given database. 
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Float, Text, DateTime, ForeignKey

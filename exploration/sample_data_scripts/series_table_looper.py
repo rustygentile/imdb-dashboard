@@ -52,24 +52,7 @@ for t in curr_titles:
     #print out listed keys in object
     print(f"Gathering info: {t}")
 
-    # Append Episode Data
-    #ia.update(series, 'episodes')
-    #print(f"Appending Episodes to {t}")
-
-    # Sort episodes using sorted Episodes function from IMDbPY
-    #episodes = helpers.sortedEpisodes(series)
-    #print(f"Sorting Episodes for {t}")
-
     # Create Empty column list variables. 
-
-    #'genres',
-    #'number of seasons',
-    #'rating',
-    #'votes',
-    #'title',
-    #'year',
-    #'seasons',
-    #'synopsis',
     title = []
     year = []
     genres = []
@@ -131,7 +114,7 @@ for t in curr_titles:
         synopsis.append(l_synopsis)
         series_id.append(l_series_id)
 
-
+    # Create Dataframes and export to csv for front end testing of graphs. 
     print(f"Creating DataFrame for {t}")
     series_df = pd.DataFrame({'title': title,
                         'year': year,
@@ -145,7 +128,7 @@ for t in curr_titles:
                         })
     series_df.head()
     print(f"Save csv for {t}")
-    episode_df.to_csv("ser_data/" + t + ".csv")
+    episode_df.to_csv("../sample_data/" + t + ".csv")
 
 
 

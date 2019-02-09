@@ -1,3 +1,7 @@
+# Use this script isntead of table_maker.py
+# This script will create the series table in the database
+# and append the data directly to the table. 
+
 import json
 import pandas as pd
 import datetime as dt
@@ -8,8 +12,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.orm import Session, relationship
-from sqlalchemy import Column, Integer, String, Float, Text, DateTime, ForeignKey 
+from sqlalchemy.orm import Session
 import os
 import sys
 
@@ -23,9 +26,8 @@ endpoint = 'imdb-explorer.clhfspuaimbp.us-east-1.rds.amazonaws.com'
 args = "ssl_ca=../database/config/rds-ca-2015-us-east-1-root.pem"
 
 # AWS username and password. 
-rds_connection_string = f"{user}:{password}@{endpoint}/imdb_production?{args}"
+rds_connection_string = f"{user}:{password}@{endpoint}/imdb_lean?{args}"
 engine = create_engine(f'mysql://{rds_connection_string}')
-
 
 # Connection attachment. 
 conn = engine.connect()
@@ -37,13 +39,14 @@ session = Session(engine)
 
 
 # Create Series Class for SQL Database Table
-class Pic(Base):
-  __tablename__ = 'pic'
-  id = Column(Integer, primary_key=True)
-  tconst = Column(Integer)
-  title = Column(String(255))
-  pic_url = Column(String(255))
-  synopsis = Column(String(255))
+class Series(Base):
+   __tablename__ = 'series'
+   id = Column(Integer, primary_key=True)
+   tconst = Column(Integer)
+   title = Column(String(255))
+   num_seasons = Column(Integer)
+   avg_rating = Column(Float)
+   num_votes = Column(Integer)
 
 # Create Episode Class for SQL Database Table
 
@@ -102,7 +105,7 @@ for t in curr_titles:
 print("Loop through and run Series Class.")
 print("Write series info to instance of Class.")
 for i in series:
-    result = Pic()
+    result = Series()
     try:
         result.tconst = i.getID()
     except KeyError:
@@ -112,17 +115,19 @@ for i in series:
     except KeyError:
         result.title = ''
     try:
-        result.pic_url = i['cover url']
+        result.num_seasons = i['seasons']
     except KeyError:
-        result.pic_url = ''
+        result.num_seasons = 0
     try:
-        result.synopsis = i['plot'][0]
+        result.avg_rating = i['rating']
     except KeyError:
-        result.synopsis = 'No Synopsis is currently found in the IMDb Database'
+        result.avg_rating = 0
+    try:
+        result.num_votes = i['votes']
+    except KeyError:
+        result.num_votes = 0
 
-
-    print(result.pic_url)
-    print(i['cover url'])
+    print(i)
     print("Commit to Database!!!!!!!")
     session.add(result)
     session.commit()

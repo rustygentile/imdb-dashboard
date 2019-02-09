@@ -2,6 +2,8 @@ from imdb import IMDb
 import sys
 from table_maker import *
 
+# This script will append the pictures table directly to the database. 
+# Run with a false value if table already exists. See load_series for instructions. 
 def add_to_db(series_list_file, create_tables):
     conn, session = create_connection(eval(create_tables))
     ia = IMDb()

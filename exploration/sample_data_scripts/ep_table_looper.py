@@ -14,8 +14,6 @@ import sys
     
 ia = IMDb()
 
-
-
 # Show Listing
 rick_n_morty = '2861424'
 ren_n_stimpy = '0101178'
@@ -149,6 +147,7 @@ for t in curr_titles:
         except KeyError:
             l_episode_id = None
 
+        # The below code will put out a csv of all episodes for every series in one csv.
         # Append data to their respective lists. 
         title.append(l_title)
         episode_of.append(l_episode_of)
@@ -200,6 +199,7 @@ total_df = pd.DataFrame({'series_id': total_ser_id,
 })
 total_df.to_csv("ep_data/axander_append.csv")
 
+# The below code will export a csv of episodes for each series individually. 
 """ series = []
 for t in curr_titles:
     fetch = ia.get_movie(t)

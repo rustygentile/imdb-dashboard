@@ -1,5 +1,17 @@
 # IMDB Dashboard
 
+## Application
+
+https://imdb-dashboard.herokuapp.com/
+
+## Authors
+
+* [Rusty Gentile](https://github.com/rustygentile)
+* [Minal Jajoo](https://github.com/minaljajoo)
+* [Scott Nubar](https://github.com/Rasbeartin)
+* [Juan Carlos Medina](https://github.com/JCMedinaG)
+* [Axander Wilson](https://github.com/AxanderW)
+
 ## Files and Folders
 
 `app.py` - Flask application which will render our site
@@ -12,15 +24,23 @@
 
 `./database` - files related to ETL, SQL database design and setup
 
+`./doc` - technical writeup
+
 ## Dependencies
 
-(add more as we go...)
+Application:
+
+* sqlalchemy
+* mysqlclient
+* flask
+* gunicorn
+* numpy
+
+ETL / Database:
 
 * pandas
-* IMDbPY
-
-Be sure to run this from your python environment:
-
-```
-pip install IMDbPY
-```
+* IMDdPy
+* dateutil
+* sqlalchemy
+* mysqlclient
+* MySQL 

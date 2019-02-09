@@ -1,7 +1,6 @@
 ############ Project 3: imdb-dashboard ########################
 
 # Importing Dependencies
-import pandas as pd
 from flask import Flask, render_template, redirect, make_response,request, jsonify
 import os
 import json

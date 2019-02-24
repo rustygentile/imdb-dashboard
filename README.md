@@ -39,7 +39,7 @@ Application:
 ETL / Database:
 
 * pandas
-* IMDdPy
+* IMDbPy
 * dateutil
 * sqlalchemy
 * mysqlclient

@@ -8,23 +8,23 @@ import numpy as np
 from exploration.database_direct_data_scripts.table_maker import *
 import datetime as dt
 from sqlalchemy.sql import func
+from flask_sqlalchemy import SQLAlchemy
 
 ######################
 # Create an instance of Flask
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['JAWSDB_URL']
+db = SQLAlchemy(app)
 ######################
 
 # Route to render index.html
 @app.route("/")
 def home():
 
-    # Database connection
-    conn, session = create_connection(False, './exploration/')
-
     # Pull all Show names and ID's in data base.
     ids = []
     titles = []
-    names = session.query(Series)
+    names = db.session.query(Series)
     for i in names:
         ids.append(i.tconst)
         titles.append(i.title)
@@ -32,7 +32,7 @@ def home():
     name_blob = {'id': ids, 'title': titles}
     
     # Pull all Carousel data. Title, Synopsis, and url of picture.
-    pics = session.query(Pic)
+    pics = db.session.query(Pic)
     pic_url = []
     title = []
     synopsis = []
@@ -43,8 +43,6 @@ def home():
 
     car_blob = {'title': title, 'synopsis': synopsis, 'pic_url': pic_url}
 
-    conn.close()
-    session.close()
     return render_template("index.html", all_shows=name_blob, all_car=car_blob)
 
 #--------------------
@@ -77,25 +75,17 @@ def mainapi():
 @app.route("/db_test")
 def dbtest():
 
-    # Database connection
-    conn, session = create_connection(False, './exploration/')
-
-    results = session.query(Series.title).all()
+    results = db.session.query(Series.title).all()
     all_names = list(np.ravel(results))
    
-    conn.close()
-    session.close()
     return jsonify(all_names)
 #--------------------
 # Route to render the Life of Brian featured plots 
 @app.route("/life_of_brian")
 def life_of_brian():
 
-    # Database connection
-    conn, session = create_connection(False, './exploration/')
-
     ## Family Guy Query -- Life of Brian
-    family_guy_episodes = session.query(Episode)\
+    family_guy_episodes = db.session.query(Episode)\
             .filter(Episode.parent_tconst == 182576)\
             .all()
         
@@ -123,8 +113,6 @@ def life_of_brian():
         'hover_text': episode_titles
     }
 
-    conn.close()
-    session.close()
     return jsonify(family_guy_chart_data)
 
 #--------------------
@@ -132,16 +120,13 @@ def life_of_brian():
 @app.route("/rick_and_morty_mania")
 def rick_and_morty_mania():
 
-    # Database connection
-    conn, session = create_connection(False, './exploration/')
-
     selected_tconsts = [96697,182576,121955,2861424]
 
     big_four_data = []
     for tconst in selected_tconsts:
 
         # Query the series table    
-        series_query = session.query(Series.title, Series.num_seasons)\
+        series_query = db.session.query(Series.title, Series.num_seasons)\
             .filter(Series.tconst == tconst)\
             .first()
         
@@ -156,7 +141,7 @@ def rick_and_morty_mania():
         series_name = []
 
         for i in range(1, number_of_seasons + 1):
-            season_rating_query = session.query(func.avg(Episode.avg_rating))\
+            season_rating_query = db.session.query(func.avg(Episode.avg_rating))\
                             .filter(Episode.parent_tconst == tconst)\
                             .filter(Episode.season==i)\
                             .first()            
@@ -166,7 +151,7 @@ def rick_and_morty_mania():
             except TypeError:
                 season_rating.append(None)
 
-            season_votes_query = session.query(func.sum(Episode.number_votes))\
+            season_votes_query = db.session.query(func.sum(Episode.number_votes))\
                             .filter(Episode.parent_tconst == tconst)\
                             .filter(Episode.season==i)\
                             .first()
@@ -176,7 +161,7 @@ def rick_and_morty_mania():
             except TypeError:
                 season_votes.append(None)
 
-            season_episode_count_query = session.query(Episode)\
+            season_episode_count_query = db.session.query(Episode)\
                             .filter(Episode.parent_tconst == tconst)\
                             .filter(Episode.season==i)\
                             .count()
@@ -195,15 +180,10 @@ def rick_and_morty_mania():
             'votes': season_votes
             })
 
-    conn.close()
-    session.close()
     return jsonify(big_four_data)
 #--------------------
 @app.route("/plotdata/all_plots/<series_tconsts>")
 def all_plots(series_tconsts):
-
-    # Database connection
-    conn, session = create_connection(False, './exploration/')
 
     # Should be a list of comma separated IMDB id's
     # E.g: '2861424,101178' for Rick and Morty and Ren & Stimpy 
@@ -212,7 +192,7 @@ def all_plots(series_tconsts):
     data_blob = []
     for tconst in selected_tconsts:
         # Query the episode table
-        episodes = session.query(Episode)\
+        episodes = db.session.query(Episode)\
             .filter(Episode.parent_tconst == tconst)\
             .all()
         
@@ -237,7 +217,7 @@ def all_plots(series_tconsts):
         season_rating = []
         season_episode_count = []
         for i in range(1, max(episode_seasons) + 1):
-            season_rating_query = session.query(func.avg(Episode.avg_rating))\
+            season_rating_query = db.session.query(func.avg(Episode.avg_rating))\
                             .filter(Episode.parent_tconst == tconst)\
                             .filter(Episode.season==i)\
                             .first()            
@@ -247,7 +227,7 @@ def all_plots(series_tconsts):
             except TypeError:
                 season_rating.append(None)
 
-            season_votes_query = session.query(func.sum(Episode.number_votes))\
+            season_votes_query = db.session.query(func.sum(Episode.number_votes))\
                             .filter(Episode.parent_tconst == tconst)\
                             .filter(Episode.season==i)\
                             .first()
@@ -257,7 +237,7 @@ def all_plots(series_tconsts):
             except TypeError:
                 season_votes.append(None)
 
-            season_episode_count_query = session.query(Episode)\
+            season_episode_count_query = db.session.query(Episode)\
                             .filter(Episode.parent_tconst == tconst)\
                             .filter(Episode.season==i)\
                             .count()
@@ -279,7 +259,7 @@ def all_plots(series_tconsts):
                 normalized_season.append(None)
 
         # Query the series table    
-        series = session.query(Series)\
+        series = db.session.query(Series)\
             .filter(Series.tconst == tconst)\
             .first()
 
@@ -304,8 +284,6 @@ def all_plots(series_tconsts):
                                 }
                            })
 
-    conn.close()
-    session.close()
     return jsonify(data_blob)
 
 ###################### End #########################
